@@ -1,0 +1,33 @@
+cChess notation:
+
+Types of pieces:
+0) Pawn
+1) Knight
+2) Bishop
+3) Rook
+4) Queen
+5) King
+
+(2) players - white/black
+
+A piece is (1) of (6) and belongs to player (1) of (2) which
+means 12 different ID's to represent all pieces.
+
+0 -> white
+1 -> black
+
+all pieces:-
+-------white----------
+00 -> white pawn
+01 -> white knight
+02 -> white bishop
+03 -> white rook
+04 -> white queen
+05 -> white king
+-------black------------
+10 -> black pawn
+11 -> black knight
+12 -> black bishop
+13 -> black rook
+14 -> black queen
+15 -> black king
