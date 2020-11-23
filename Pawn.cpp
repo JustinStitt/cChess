@@ -24,8 +24,8 @@ void Pawn::calculateAvailableMoves(vector<vector<Piece*>>& b) {
 
 	//check diagnol captures for each color
 	int nr = (!color ? (r + 1) : (r - 1));
-	if (!color && nr < ROWS - 1
-		|| color > 0) {//if we are white, is the move in bounds? same for black.
+	if (    (!color && nr <= ROWS - 1)
+		 || (color > 0 && nr >= 0) ) {//is the move in bounds? same for black.
 		if (int nc = c - 1; nc >= 0) {//left diagnol in bounds
 			if (auto piece = b[nr][nc]->getInfo(); piece.first == !color &&
 				piece.second != 5) {//some  piece (not king)
