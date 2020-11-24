@@ -10,12 +10,12 @@ int main()
 	Chess game;
 	game.setupBoard();
 	game.printBoard();
-	/*
+	
 	vector<vector<Piece*>> board = game.getBoard();//debug
-	Piece* some_piece = board[3][4];//debug
+	Piece* some_piece = board[4][4];//debug
 	some_piece->calculateAvailableMoves(board);//debug
 	some_piece->printAvailableMoves();//debug
-	*/
+	
 
 
 	cin.get();

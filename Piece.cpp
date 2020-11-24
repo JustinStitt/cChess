@@ -12,7 +12,7 @@ void Piece::printAvailableMoves() {
 
 
 //helpers (aux)
-bool isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b) {
+pair<bool, bool> isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b) {
 	/*
 		can a piece of this color move to some cell [nr,nc]
 		things to check:
@@ -24,11 +24,13 @@ bool isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b) {
 	int _c = info.first;
 	int _id = info.second;
 	if (color == _c) {//same color... cant move there!
-		return false;
+		return make_pair(false, false);
 	}
 	else if (_id == 5) {//the piece is a king!
-		return false;
+		return make_pair(false,false);
 	}
 	//to-do: are we in check as a result of this move?
-	return true;//we can move there!
+	if (_id != -1)// was a capture!
+		return make_pair(true, true);
+	return make_pair(true, false);//we can move there! was not a capture though!
 }

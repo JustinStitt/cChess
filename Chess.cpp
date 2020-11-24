@@ -18,6 +18,14 @@ void Chess::setupBoard() {
 	this->board[0][6] = new Knight(0, 1, make_pair(0, 6)); //white king's knight
 	this->board[7][1] = new Knight(1, 1, make_pair(7, 1)); //black queen's knight
 	this->board[7][6] = new Knight(1, 1, make_pair(7, 6)); //black king's knight
+	//bishops
+	this->board[0][2] = new Bishop(0, 2, make_pair(0, 2));//white queen's bishop
+	this->board[0][5] = new Bishop(0, 2, make_pair(0, 5));//white kings's bishop
+	this->board[7][2] = new Bishop(1, 2, make_pair(7, 2));//black queen's bishop
+	this->board[7][5] = new Bishop(1, 2, make_pair(7, 5));//black kings's bishop
+
+
+	
 
 }
 

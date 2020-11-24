@@ -24,6 +24,8 @@ public:
 
 };
 
+//Pieces
+
 class Empty : public Piece {
 private:
 public:
@@ -50,6 +52,16 @@ public:
 
 };
 
+class Bishop : public Piece {
+private:
+public:
+	//implementation -> Bishop.cpp
+	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+	using Piece::Piece;
+
+};
+
+
 //helpers (aux)
-bool isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b);
+pair<bool, bool> isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b);
 
