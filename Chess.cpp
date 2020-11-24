@@ -6,14 +6,19 @@ void Chess::setupBoard() {
 		r.resize(COLS, new Empty());//setup cols (empty pieces/cells)
 	}
 
-	//setup 1,2 & 7,8 ranks with correct piece positions
+	//pawns
 	for (int c{}; c < COLS; ++c) {
 		this->board[1][c] = new Pawn(0, 0, make_pair(1, c));//second_rank
 	}
 	for (int c{}; c < COLS; ++c) {
 		this->board[6][c] = new Pawn(1, 0, make_pair(6, c));//seventh_rank
 	}
-	//this->board[2][3] = new Pawn(1, 0, make_pair(2, 0)); //debug
+	//knights
+	this->board[0][1] = new Knight(0, 1, make_pair(0, 1)); //white queen's knight
+	this->board[0][6] = new Knight(0, 1, make_pair(0, 6)); //white king's knight
+	this->board[7][1] = new Knight(1, 1, make_pair(7, 1)); //black queen's knight
+	this->board[7][6] = new Knight(1, 1, make_pair(7, 6)); //black king's knight
+
 }
 
 
