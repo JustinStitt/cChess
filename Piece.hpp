@@ -61,6 +61,15 @@ public:
 
 };
 
+class Rook : public Piece {
+private:
+public:
+	//implementation -> Rook .cpp
+	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+	using Piece::Piece;
+
+};
+
 
 //helpers (aux)
 pair<bool, bool> isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b);

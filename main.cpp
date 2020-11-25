@@ -12,7 +12,7 @@ int main()
 	game.printBoard();
 	
 	vector<vector<Piece*>> board = game.getBoard();//debug
-	Piece* some_piece = board[4][4];//debug
+	Piece* some_piece = board[4][7];//debug
 	some_piece->calculateAvailableMoves(board);//debug
 	some_piece->printAvailableMoves();//debug
 	

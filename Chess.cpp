@@ -23,7 +23,11 @@ void Chess::setupBoard() {
 	this->board[0][5] = new Bishop(0, 2, make_pair(0, 5));//white kings's bishop
 	this->board[7][2] = new Bishop(1, 2, make_pair(7, 2));//black queen's bishop
 	this->board[7][5] = new Bishop(1, 2, make_pair(7, 5));//black kings's bishop
-
+	//rooks
+	this->board[0][0] = new Rook(0, 3, make_pair(0, 0));//white queen's rook
+	this->board[0][7] = new Rook(0, 3, make_pair(0, 7));//white king's rook
+	this->board[7][0] = new Rook(1, 3, make_pair(7, 0));//black queen's rook
+	this->board[7][7] = new Rook(1, 3, make_pair(7, 7));//black king's rook
 
 	
 
