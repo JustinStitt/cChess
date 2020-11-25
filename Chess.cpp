@@ -1,9 +1,14 @@
 #include "Chess.hpp"
 
+pair<int, int> parseInput(char&, char&);//aux helper
+
 void Chess::setupBoard() {
 	this->board.resize(ROWS);//setup rows
 	for (auto& r : this->board) {
-		r.resize(COLS, new Empty());//setup cols (empty pieces/cells)
+		r.resize(COLS);
+		for (auto& c : r) {
+			c = new Empty();
+		}
 	}
 
 	//pawns
@@ -38,6 +43,58 @@ void Chess::setupBoard() {
 
 }
 
+void Chess::startGame() {
+	this->current_player = 0;//starts with player 0 (white)
+	//setup the board
+	this->setupBoard();
+	//prompt user for their move
+	while(true)
+	this->prompt();
+}
+
+void Chess::prompt() {
+	system("CLS");//clears the console (on windows)
+	//first step is to print the board
+	this->printBoard();
+	cout << "Player: " << (this->current_player == 0 ? "White" : "Black") << endl;
+	cout << "select piece to move [A-H][1-8]: ";
+	char col, row;
+	auto [r,c] = parseInput(col, row);
+	Piece* chosen = this->board[r][c];
+	//now show available moves for this piece
+	chosen->calculateAvailableMoves(this->board);
+	vector<pair<int, int>> moveset = chosen->getAvailableMoves();
+	cout << "availble moves: { ";
+	for (auto& [r, c] : moveset) {
+		char row = r + '1';
+		char col = c + 65;
+		cout << col << row << " ";
+	}cout << "}" << endl;
+
+	//now ask user to select a move to make then execute the move
+	cout << "select move: ";
+	auto [cr, cc] = parseInput(col, row);
+	chosen->setPos(make_pair(cr, cc));
+	//to-do input validation here
+	//move chosen piece to chosen position (r,c)
+	delete board[cr][cc];
+	board[cr][cc] = chosen;//now set to chosen piece
+	board[r][c] = new Empty();//board[r][c] is now empty
+	
+	this->nextTurn();
+}
+//aux helper
+pair<int,int> parseInput(char& c, char& r) {
+	cin >> c >> r;
+	//find the piece
+	int row = (r - '0') - 1;//0-based
+	int col = toupper(c) - 'A';
+	return make_pair(row, col);
+}
+
+void Chess::nextTurn() {
+	this->current_player = !current_player;//toggles between 0 and 1
+}
 
 
 void Chess::printBoard() {

@@ -19,6 +19,14 @@ public:
 		return make_pair(this->color, this->id);
 	}
 
+	vector<pair<int, int>> getAvailableMoves() {
+		return this->available_moves;
+	}
+
+	void setPos(pair<int, int> some_pos) {
+		this->pos = some_pos;
+	}
+
 	virtual void calculateAvailableMoves(vector<vector<Piece*>>& b) { return; }//each piece will have this
 	void printAvailableMoves();
 
