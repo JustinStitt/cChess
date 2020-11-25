@@ -58,18 +58,33 @@ public:
 	//implementation -> Bishop.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
 	using Piece::Piece;
-
+	friend class Queen;
 };
 
 class Rook : public Piece {
 private:
 public:
-	//implementation -> Rook .cpp
+	//implementation -> Rook.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
 	using Piece::Piece;
-
+	friend class Queen;
 };
 
+class Queen : public Piece {
+private:
+public:
+	//implementation -> Queen.cpp
+	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+	using Piece::Piece;
+};
+
+class King : public Piece {
+private:
+public:
+	//implementation -> King.cpp
+	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+	using Piece::Piece;
+};
 
 //helpers (aux)
 pair<bool, bool> isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b);

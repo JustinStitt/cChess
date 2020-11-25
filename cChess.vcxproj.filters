@@ -52,5 +52,11 @@
     <ClCompile Include="Rook.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Queen.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="King.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

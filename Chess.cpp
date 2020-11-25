@@ -28,24 +28,39 @@ void Chess::setupBoard() {
 	this->board[0][7] = new Rook(0, 3, make_pair(0, 7));//white king's rook
 	this->board[7][0] = new Rook(1, 3, make_pair(7, 0));//black queen's rook
 	this->board[7][7] = new Rook(1, 3, make_pair(7, 7));//black king's rook
+	//queens
+	this->board[0][3] = new Queen(0, 4, make_pair(0, 3));//white queen
+	this->board[7][3] = new Queen(1, 4, make_pair(7, 3));//black queen
+	//kings
+	this->board[0][4] = new King(0, 5, make_pair(0, 4));//white king
+	this->board[7][4] = new King(1, 5, make_pair(0, 4));//black king
 
-	
 
 }
 
 
 
 void Chess::printBoard() {
+	char black = 178;
+	char white = 176;
+	char background = black;
 	for (int r = this->board.size() - 1; r >= 0; --r) {//reverse order so white is at the bottom
-		for (auto& p : this->board[r]) {
+		for (auto& p : this->board[r]) {				
 			pair<int, int> info = p->getInfo();
 			if (info.first == -1 and info.second == -1)
-				cout << " xx";//empty cell displayed as 'xx' (prob change this)
+				cout << "  " << background;//empty cell displayed as 'xx' (prob change this)
 			else 
 				cout << " " << info.first << info.second;
+			background = (background == white ? black : white);
 		}
-		cout << endl;
+		background = (background == white ? black : white);
+		cout << char(179) << " " << r+1 << endl;
 	}
+	cout << string(COLS * 3, char(196)) << endl << " ";
+	for (int x{}; x < COLS; ++x) {
+		char p = 65 + x;
+		cout << p << "  ";
+	} cout << endl << endl;
 }
 
 
