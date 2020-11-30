@@ -60,20 +60,40 @@ void Chess::prompt() {
 	cout << "select piece to move [A-H][1-8]: ";
 	char col, row;
 	auto [r,c] = parseInput(col, row);
+	if (r < 0 || r > ROWS - 1 || c < 0 || c > COLS - 1) {
+		this->prompt();
+		return;
+	}
 	Piece* chosen = this->board[r][c];
+	if (chosen->getInfo().first != this->current_player) {
+		this->prompt();
+		return;
+	}
 	//now show available moves for this piece
 	chosen->calculateAvailableMoves(this->board);
 	vector<pair<int, int>> moveset = chosen->getAvailableMoves();
+	if (moveset.empty()) {
+		this->prompt();
+		return;
+	}
 	cout << "availble moves: { ";
 	for (auto& [r, c] : moveset) {
 		char row = r + '1';
 		char col = c + 65;
 		cout << col << row << " ";
-	}cout << "}" << endl;
+	}cout << "} for piece at " << col << row << endl;
 
 	//now ask user to select a move to make then execute the move
-	cout << "select move: ";
-	auto [cr, cc] = parseInput(col, row);
+	
+	//make sure selected move is within moveset of the piece
+	auto f = moveset.begin();//f is an iterator to pair<int,int> in moveset
+	int cr, cc;
+	do {
+		cout << "select move: ";
+		tie(cr,cc) = parseInput(col, row);
+		f = find(moveset.begin(), moveset.end(), make_pair(cr, cc));//validate move
+	}while(f == moveset.end());
+
 	chosen->setPos(make_pair(cr, cc));
 	//to-do input validation here
 	//move chosen piece to chosen position (r,c)
