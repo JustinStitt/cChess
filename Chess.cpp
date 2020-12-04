@@ -1,4 +1,5 @@
 #include "Chess.hpp"
+#include <algorithm>
 
 pair<int, int> parseInput(char&, char&);//aux helper
 
@@ -38,7 +39,7 @@ void Chess::setupBoard() {
 	this->board[7][3] = new Queen(1, 4, make_pair(7, 3));//black queen
 	//kings
 	this->board[0][4] = new King(0, 5, make_pair(0, 4));//white king
-	this->board[7][4] = new King(1, 5, make_pair(0, 4));//black king
+	this->board[7][4] = new King(1, 5, make_pair(7, 4));//black king
 
 
 }
@@ -72,11 +73,27 @@ void Chess::prompt() {
 	//now show available moves for this piece
 	chosen->calculateAvailableMoves(this->board);
 	vector<pair<int, int>> moveset = chosen->getAvailableMoves();
+	
+	//simulate each move and see if we are in check or not
+	for (auto& move : moveset) {
+		vector<vector<Piece*>> pseudo(board);
+		if (chosen->getInfo().second == 5) {//if we chose a king
+			chosen->setPos(move);
+		}
+		pseudo[r][c] = new Empty();
+		pseudo[move.first][move.second] = chosen;//now set to chosen piece
+		pair<int, int> test = chosen->getInfo();
+		if (inCheck(chosen->getInfo().first, pseudo)) {
+			moveset.erase(remove(moveset.begin(), moveset.end(), move), moveset.end());//erase-remove idiom
+		}
+		chosen->setPos(make_pair(r, c));
+	}
 	if (moveset.empty()) {
 		this->prompt();
 		return;
 	}
-	cout << "availble moves: { ";
+
+	cout << "available moves: { ";
 	for (auto& [r, c] : moveset) {
 		char row = r + '1';
 		char col = c + 65;
@@ -95,7 +112,6 @@ void Chess::prompt() {
 	}while(f == moveset.end());
 
 	chosen->setPos(make_pair(cr, cc));
-	//to-do input validation here
 	//move chosen piece to chosen position (r,c)
 	delete board[cr][cc];
 	board[cr][cc] = chosen;//now set to chosen piece

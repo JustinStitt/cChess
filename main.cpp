@@ -11,7 +11,6 @@ int main()
 	game.startGame();
 	//game.setupBoard();
 	//game.printBoard();
-	
 	/*
 	
 	vector<vector<Piece*>> board = game.getBoard();//debug
@@ -19,7 +18,9 @@ int main()
 	some_piece->calculateAvailableMoves(board);//debug
 	some_piece->printAvailableMoves();//debug
 	*/
-
+	vector<int> test;
+	test.push_back(5);
+	
 	cin.ignore();
 	cin.get();
 	return 0;

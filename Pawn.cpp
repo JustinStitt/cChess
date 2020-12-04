@@ -4,41 +4,27 @@ void Pawn::calculateAvailableMoves(vector<vector<Piece*>>& b) {
 	const auto& [r, c] = this->pos;
 
 	vector<pair<int, int>> moves;
-
-	//white
-	if (int nr = r + 1, nc = c;
-		(this->color == 0) &&
-		(r < ROWS - 1) &&
-		(b[nr][c]->getInfo().first == -1)    )
-	{//if we are white, within bounds, and empty cell is ahead
-		moves.push_back(make_pair(nr, c));//add to available moves
+	int dir = this->color == 0 ? 1 : -1;//if white dir is up, else down
+	if (int nr = r + dir; isLegal(this->color, nr, c, b) == 3) {//valid move
+		moves.push_back(make_pair(nr, c));
 	}
-	//black
-	else if (int nr = r - 1, nc = c;
-		(this->color == 1) &&
-		(r > 0) &&
-		(b[nr][c]->getInfo().first == -1))
-	{//if we are white, within bounds, and empty cell is ahead
-		moves.push_back(make_pair(nr, c));//add to available moves
-	}
-
 	//check diagnol captures for each color
-	int nr = (!color ? (r + 1) : (r - 1));
-	if (    (!color && nr <= ROWS - 1)
-		 || (color > 0 && nr >= 0) ) {//is the move in bounds? same for black.
-		if (int nc = c - 1; nc >= 0) {//left diagnol in bounds
-			if (auto piece = b[nr][nc]->getInfo(); piece.first == !color &&
-				piece.second != 5) {//some  piece (not king)
-				moves.push_back(make_pair(nr, nc));//capture left diagnol
-			}
-		}
-		if (int nc = c + 1; nc <= COLS - 1) {//right diagnol in bounds
-			if (auto piece = b[nr][nc]->getInfo(); piece.first == !color &&
-				piece.second != 5) {//some  piece (not king)
-				moves.push_back(make_pair(nr, nc));//capture right diagnol
-			}
+	int nr = r + dir;
+	int nc = c - 1;
+	int legal = isLegal(this->color, nr, nc, b);
+	if (legal == 2 || legal == 1)//capture or check
+		moves.push_back(make_pair(nr, nc));
+	nc = c + 1; legal = isLegal(this->color, nr, nc, b);
+	if (legal == 2 || legal == 1) {//capture or check
+		moves.push_back(make_pair(nr, nc));
+	}
+	//double move from home row
+	if (int ddir = dir * 2; (r == 1 && this->color == 0) ||
+		(r == 6 && this->color)) {//2nd rank and white or 7th rank and black
+		int legal = isLegal(this->color, r + ddir, c, b);
+		if (legal == 3) {//empty cell
+			moves.push_back(make_pair(r + ddir, c)); 
 		}
 	}
-
 	this->available_moves = moves;
 }

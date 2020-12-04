@@ -7,8 +7,10 @@ void Queen::calculateAvailableMoves(vector<vector<Piece*>>& b) {
 		create dummy bishop and dummy rook and combine legal moves
 	*/
 	//allocate on heap
-	Bishop* dummy_bishop = new Bishop(this->color, 2, this->pos); dummy_bishop->calculateAvailableMoves(b);
-	Rook* dummy_rook = new Rook(this->color, 3, this->pos); dummy_rook->calculateAvailableMoves(b);
+	Bishop* dummy_bishop = new Bishop(this->color, 2, this->pos); 
+	dummy_bishop->calculateAvailableMoves(b);
+	Rook* dummy_rook = new Rook(this->color, 3, this->pos); 
+	dummy_rook->calculateAvailableMoves(b);
 
 	vector<pair<int, int>> legal_moves = dummy_bishop->available_moves;
 	for (auto move : dummy_rook->available_moves) {

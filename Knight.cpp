@@ -23,8 +23,8 @@ void Knight::calculateAvailableMoves(vector<vector<Piece*>>& b) {
 	vector<pair<int, int>> legal_moves;
 
 	for (auto& [nr, nc] : knight_moves) {
-		if ((nr > ROWS - 1) || (nr < 0) || (nc > COLS - 1) || (nc < 0)) continue;//do not add
-		if (!isLegal(this->color, nr, nc, b).first) continue;
+		int legal = isLegal(this->color, nr, nc, b);
+		if (legal == 0) continue;//cannot make move
 		legal_moves.push_back(make_pair(nr, nc));
 	}
 	this->available_moves = legal_moves;

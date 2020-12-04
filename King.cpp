@@ -16,11 +16,8 @@ void King::calculateAvailableMoves(vector<vector<Piece*>>& b) {
 	//find legal moves
 	vector<pair<int, int>> legal_moves;
 	for (auto&[nr,nc] : moves) {
-
-		if ((nr > ROWS - 1) || (nr < 0) ||
-			(nc > COLS - 1) || (nc < 0)) continue;
-		pair<bool, bool> legal = isLegal(this->color, nr, nc, b);
-		if (!legal.first) continue;
+		int legal = isLegal(this->color, nr, nc, b);
+		if (legal == 0) continue;
 		legal_moves.push_back(make_pair(nr, nc));
 	}
 	this->available_moves = legal_moves;

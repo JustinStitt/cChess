@@ -27,9 +27,12 @@ public:
 		this->pos = some_pos;
 	}
 
+	pair<int, int> getPos() {
+		return this->pos;
+	}
+
 	virtual void calculateAvailableMoves(vector<vector<Piece*>>& b) { return; }//each piece will have this
 	void printAvailableMoves();
-
 };
 
 //Pieces
@@ -56,6 +59,7 @@ private:
 public:
 	//implementation -> Knight.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+
 	using Piece::Piece;
 
 };
@@ -65,6 +69,7 @@ private:
 public:
 	//implementation -> Bishop.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+
 	using Piece::Piece;
 	friend class Queen;
 };
@@ -74,6 +79,7 @@ private:
 public:
 	//implementation -> Rook.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+
 	using Piece::Piece;
 	friend class Queen;
 };
@@ -83,6 +89,7 @@ private:
 public:
 	//implementation -> Queen.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+
 	using Piece::Piece;
 };
 
@@ -91,9 +98,11 @@ private:
 public:
 	//implementation -> King.cpp
 	void calculateAvailableMoves(vector<vector<Piece*>>& b);
+
 	using Piece::Piece;
 };
 
 //helpers (aux)
-pair<bool, bool> isLegal(int color, int nr, int nc, vector<vector<Piece*>>& b);
+bool inCheck(int color, vector<vector<Piece*>>& b);
+int isLegal(int color, int nr, int nc, vector<vector<Piece*>> b);
 
