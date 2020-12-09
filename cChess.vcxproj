@@ -19,23 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="notation.txt" />
+    <ClCompile Include="src\Chess.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\pieces\Bishop.cpp" />
+    <ClCompile Include="src\pieces\King.cpp" />
+    <ClCompile Include="src\pieces\Knight.cpp" />
+    <ClCompile Include="src\pieces\Pawn.cpp" />
+    <ClCompile Include="src\pieces\Piece.cpp" />
+    <ClCompile Include="src\pieces\Queen.cpp" />
+    <ClCompile Include="src\pieces\Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Chess.hpp" />
-    <ClInclude Include="Piece.hpp" />
-    <ClInclude Include="ruleset.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Bishop.cpp" />
-    <ClCompile Include="Chess.cpp" />
-    <ClCompile Include="King.cpp" />
-    <ClCompile Include="Knight.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pawn.cpp" />
-    <ClCompile Include="Piece.cpp" />
-    <ClCompile Include="Queen.cpp" />
-    <ClCompile Include="Rook.cpp" />
+    <ClInclude Include="src\Chess.hpp" />
+    <ClInclude Include="src\pieces\Piece.hpp" />
+    <ClInclude Include="src\ruleset.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

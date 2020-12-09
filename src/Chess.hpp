@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#include "Piece.hpp"
+#include "pieces/Piece.hpp"
 #include "ruleset.hpp"
 
 using namespace std;
