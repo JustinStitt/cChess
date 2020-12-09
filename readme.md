@@ -4,7 +4,7 @@
 ## GAMEPLAY ## 
 Scholar's mate:
 
-![](cChess_scholarsmate.gif)
+![](media/cChess_scholarsmate.gif)
 
 
 ## Features ##
