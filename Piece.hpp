@@ -19,7 +19,7 @@ public:
 		return make_pair(this->color, this->id);
 	}
 
-	vector<pair<int, int>> getAvailableMoves() {
+	vector<pair<int, int>>& getAvailableMoves() {
 		return this->available_moves;
 	}
 

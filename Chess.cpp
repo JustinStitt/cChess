@@ -57,6 +57,45 @@ void Chess::prompt() {
 	system("CLS");//clears the console (on windows)
 	//first step is to print the board
 	this->printBoard();
+	bool canMove = false;
+
+	//calculate all available moves for this player and remove moves that put player in check
+	for (auto& r : this->board) {
+		for (auto& p : r) {
+			auto [color, id] = p->getInfo();
+			auto snapshot_pos = p->getPos();
+			if (color != this->current_player) continue;
+			p->calculateAvailableMoves(this->board);
+			vector<pair<int, int>>& moveset = p->getAvailableMoves();
+			vector<pair<int, int>> copy(moveset);
+			for (auto move : copy) {
+				vector<vector<Piece*>> pseudo(this->board);
+				if (id == 5) {//if we chose a king
+					p->setPos(move);
+				}
+				pseudo[snapshot_pos.first][snapshot_pos.second] = new Empty();
+				pseudo[move.first][move.second] = p;//now set to chosen piece
+				if (inCheck(color, pseudo)) {
+					moveset.erase(remove(moveset.begin(), moveset.end(), move), moveset.end());//erase-remove idiom
+				}
+			}
+			if (!moveset.empty()) canMove = true;
+			p->setPos(snapshot_pos);
+		}
+	}
+
+	if (!canMove) {//current player has no moves to make (stalemate or checkmate)
+		//checkmate if player has no moves and is in check
+		if (inCheck(this->current_player, this->board)) {
+			cout << "checkmate!!! " <<
+				(this->current_player ? "White wins!" : "Black wins!") << endl;
+		}
+		else {
+			cout << "stalemate... it's a draw." << endl;
+		}
+		//stalemante otherwise
+	}
+
 	cout << "Player: " << (this->current_player == 0 ? "White" : "Black") << endl;
 	cout << "select piece to move [A-H][1-8]: ";
 	char col, row;
@@ -71,23 +110,8 @@ void Chess::prompt() {
 		return;
 	}
 	//now show available moves for this piece
-	chosen->calculateAvailableMoves(this->board);
-	vector<pair<int, int>> moveset = chosen->getAvailableMoves();
+	vector<pair<int, int>>& moveset = chosen->getAvailableMoves();
 	
-	//simulate each move and see if we are in check or not
-	for (auto& move : moveset) {
-		vector<vector<Piece*>> pseudo(board);
-		if (chosen->getInfo().second == 5) {//if we chose a king
-			chosen->setPos(move);
-		}
-		pseudo[r][c] = new Empty();
-		pseudo[move.first][move.second] = chosen;//now set to chosen piece
-		pair<int, int> test = chosen->getInfo();
-		if (inCheck(chosen->getInfo().first, pseudo)) {
-			moveset.erase(remove(moveset.begin(), moveset.end(), move), moveset.end());//erase-remove idiom
-		}
-		chosen->setPos(make_pair(r, c));
-	}
 	if (moveset.empty()) {
 		this->prompt();
 		return;
